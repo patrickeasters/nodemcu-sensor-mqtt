@@ -12,11 +12,11 @@ function startup()
 end
 
 --init.lua
-wifi.sta.disconnect()
 print("Setting up wifi")
 wifi.setmode(wifi.STATION)
 wifi.sta.config(SSID,PSK,0)
 wifi.sta.connect()
+wifi.sta.autoconnect(1)
 tmr.alarm(1, 1000, 1, function()
     if wifi.sta.getip()== nil then
       print("Waiting on dhcp...")

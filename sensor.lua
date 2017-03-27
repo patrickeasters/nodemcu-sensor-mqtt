@@ -1,18 +1,8 @@
 -- BEGIN CONFIGURATION
-
--- let's define the pins
--- Map the GPIO pin number to a MQTT topic
-map = {}
-state = {}
-map[1] = "Front Door"
-map[2] = "Back Door"
-map[3] = "Garage Entry"
-
--- MQTT topic prefix
-topic_prefix = "pat/alarm/"
+dofile("config.lua")
 
 -- END CONFIGURATION
-
+state = {}
 connected = 0
 
 -- shamelessly adapted from github https://gist.github.com/marcelstoer/59563e791effa4acb65f
@@ -33,7 +23,6 @@ end
 
 
 function onChange ()
-  print("onChange triggered")
   for p,v in ipairs(map) do
     s = gpio.read(p)
     --print("Pin "..p.." is "..s.." with state "..state[p])
@@ -41,7 +30,7 @@ function onChange ()
       print("Pin "..p.." has changed to "..s)
       state[p] = s
       if connected == 1 then
-        m:publish(topic_prefix..map[p], s, 0, 1)
+        m:publish(topic_prefix..map[p], payload[s], 0, 1)
       end
     end
   end
@@ -49,19 +38,23 @@ end
 
 
 -- init mqtt client and connect
-m = mqtt.Client("node1", 120, MQTT_USER, MQTT_PASS)
+m = mqtt.Client(MQTT_CLIENT_ID, 120, MQTT_USER, MQTT_PASS)
 
 m:on("offline", function(client)
     print ("mqtt offline")
     connected = 0
   end)
 
--- connect with creds
-m:connect(MQTT_HOST, MQTT_PORT, 0, function(client)
+-- connect to mqtt with creds and autoreconnect
+m:connect(MQTT_HOST, MQTT_PORT, 0, 1, function(client)
     print("mqtt connected")
+    m:publish(topic_prefix..status_topic, "online", 0, 0)
     connected = 1
   end,
   function(client, reason) print("failed reason: "..reason) end)
+
+-- setup lwt topic
+m:lwt(topic_prefix..status_topic, "offline", 0, 0)
 
 -- now map gpio stuff
 for p,v in ipairs(map) do
