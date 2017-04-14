@@ -23,7 +23,7 @@ end
 
 
 function onChange ()
-  for p,v in ipairs(map) do
+  for p,v in pairs(map) do
     s = gpio.read(p)
     --print("Pin "..p.." is "..s.." with state "..state[p])
     if s ~= state[p] then
@@ -57,7 +57,7 @@ m:connect(MQTT_HOST, MQTT_PORT, 0, 1, function(client)
 m:lwt(topic_prefix..status_topic, "offline", 0, 0)
 
 -- now map gpio stuff
-for p,v in ipairs(map) do
+for p,v in pairs(map) do
   gpio.mode(p, gpio.INT, gpio.PULLUP)
   gpio.trig(p, 'both', debounce(onChange) )
   state[p] = nil

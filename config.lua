@@ -3,7 +3,7 @@
 map = {}
 map[1] = "Front Door"
 map[2] = "Back Door"
-map[3] = "Garage Entry"
+map[5] = "Garage Entry"
 
 -- MQTT config
 topic_prefix = "pat/alarm/"
