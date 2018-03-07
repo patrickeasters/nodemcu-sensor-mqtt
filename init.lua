@@ -14,7 +14,7 @@ end
 --init.lua
 print("Setting up wifi")
 wifi.setmode(wifi.STATION)
-wifi.sta.config(SSID,PSK,0)
+wifi.sta.config(WIFI_CONFIG)
 wifi.sta.connect()
 wifi.sta.autoconnect(1)
 tmr.alarm(1, 1000, 1, function()
