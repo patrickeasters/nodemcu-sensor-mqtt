@@ -33,6 +33,6 @@ The GPIO pins are configured with the weak internal pull-up resistor enabled. Th
 This code publishes a payload of open or closed to an individual topic for each sensor. The topic prefix, topic names, and payload are defined in config.yaml.
 
 ## Other Links
-[Blog post](https://medium.com/@patrickeasters/integrating-existing-home-security-sensors-with-mqtt-6d41f09ff41d)
+[Blog post](https://patrickeasters.com/integrating-existing-home-security-sensors-with-mqtt/)
 
 [My full Home Assistant Configuration](https://github.com/patrickeasters/smart-house)
