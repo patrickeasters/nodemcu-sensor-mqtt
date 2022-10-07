@@ -1,6 +1,9 @@
 # nodemcu-sensor-mqtt
 A project to report home alarm sensor status via MQTT using a [NodeMCU](https://github.com/nodemcu/nodemcu-firmware) development board.
 
+## Note: This is archived!
+Heads up! I am no longer maintaining this project or really recommend anyone use it. The ecosystem has evolved enormously since 2017 and there are infinitely better solutions than this. I've since migrated to [ESPHome](https://esphome.io/), which is a fantastic way to use ESP8266 and ESP32 boards for home automation alongside an active community.
+
 ## Hardware
 This was a pretty simple build, using only a few components
 
